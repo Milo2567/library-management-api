@@ -56,7 +56,7 @@ class BookController extends Controller
      * @param \App\Models\Book $book
      * @return mixed|\Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Book $book){
+    public function update(Request $request){
         $validator = validator($request->all(), [
             "title" => "required|string|max:255",
             "summary" => "required|string",
@@ -67,7 +67,7 @@ class BookController extends Controller
             return $this->BadRequest($validator);
         }
 
-        $book->update($validator->validated());
+        $book = Book::update($validator->validated());
 
         return $this->Ok($book, "Book has been updated!");
     }
